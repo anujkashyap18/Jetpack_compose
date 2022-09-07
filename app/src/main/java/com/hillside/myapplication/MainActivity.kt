@@ -1,5 +1,6 @@
 package com.hillside.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.widget.Toast
@@ -30,73 +31,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Surface(color = MaterialTheme.colors.background) {
-                LoginScreen()
-            }
-        }
-    }
-
-    private fun logged(username:String,password:String){
-        if (username == "anuj" && password == "12345"){
-            Toast.makeText(this, "Logged", Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(this, "Wrong credential", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    @Composable
-    fun LoginScreen(){
-        val username = remember { mutableStateOf("") }
-        val password = remember{ mutableStateOf("") }
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp),
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(text = "Hello Again!",fontSize = 25.sp,color = Color.Blue,
-                fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
-            Text(text = "Welcome",fontSize = 25.sp,color = Color.Blue,
-                fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
-            Text(text = "Back",fontSize = 25.sp,color = Color.Blue,
-                fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
-            OutlinedTextField(
-                value = username.value,
-                onValueChange = {
-                    username.value = it
-                },
-                leadingIcon = {
-                    Icon(Icons.Default.Person, contentDescription = "person")
-                },
-                label = {
-                    Text(text = "Username")
-                },
-                placeholder = {
-                    Text(text = "enter username")
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
-            OutlinedTextField(
-                value = password.value,
-                onValueChange = {
-                    password.value = it
-                },
-                leadingIcon = {
-                    Icon(Icons.Default.Info, contentDescription = "person")
-                },
-                label = {
-                    Text(text = "Password")
-                },
-                placeholder = {
-                    Text(text = "enter password")
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            OutlinedButton(onClick = {logged(username.value,password.value)},
-                modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
-            ) {
-                Text(text = "Login")
+//                LoginScreen()
             }
         }
     }

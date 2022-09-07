@@ -1,6 +1,8 @@
 package com.hillside.myapplication
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -18,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.hillside.myapplication.retrofit.ui.RetrofitActivity
 import com.hillside.myapplication.ui.theme.MyApplicationTheme
 
 class LoginActivity: ComponentActivity() {
@@ -25,9 +28,18 @@ class LoginActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApplicationTheme {
-
+            Surface(color = MaterialTheme.colors.background) {
+                LoginScreen()
             }
+        }
+    }
+
+    private fun logged(username:String,password:String){
+        if (username == "anuj" && password == "12345"){
+            Toast.makeText(this, "Logged", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this,RetrofitActivity::class.java))
+        }else{
+            Toast.makeText(this, "Wrong credential", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -37,8 +49,10 @@ class LoginActivity: ComponentActivity() {
         val password = remember{ mutableStateOf("") }
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(20.dp),
-            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp),
+            verticalArrangement = Arrangement.Center
         ) {
             Text(text = "Hello Again!",fontSize = 25.sp,color = Color.Blue,
                 fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
@@ -59,10 +73,12 @@ class LoginActivity: ComponentActivity() {
                 },
                 placeholder = {
                     Text(text = "enter username")
-                }
+                },
+                modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
                 value = password.value,
+
                 onValueChange = {
                     password.value = it
                 },
@@ -74,12 +90,14 @@ class LoginActivity: ComponentActivity() {
                 },
                 placeholder = {
                     Text(text = "enter password")
-                }
+                },
+                modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedButton(
-                onClick = {},
-                modifier = Modifier.fillMaxWidth().padding(top = 10.dp)
+            OutlinedButton(onClick = {logged(username.value,password.value)},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
             ) {
                 Text(text = "Login")
             }
